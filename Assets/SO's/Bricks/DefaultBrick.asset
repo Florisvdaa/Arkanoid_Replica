@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3709fb2b01b34534689757fb52152be1, type: 3}
   m_Name: DefaultBrick
   m_EditorClassIdentifier: 
+  brickPrefab: {fileID: 5767268430874859777, guid: 17fefa900ec8f7941837ddb7257adab1, type: 3}
+  hitPoints: 10
   health: 2
   brickSprite:
   - {fileID: 21300000, guid: fbd0b189e94eb8449b8c98c6416e5568, type: 3}

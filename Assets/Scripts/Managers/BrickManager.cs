@@ -2,9 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manages the bricks
+/// </summary>
 public class BrickManager : MonoBehaviour
 {
     public static BrickManager Instance {  get; private set; }
+
+    [Header("Level Settings")]
+    [SerializeField] private int rows = 5;      
+    [SerializeField] private int columns = 10;
+    [SerializeField] private float spacingX = 0.2f;
+    [SerializeField] private float spacingY = 0.2f;
+
+    [Header("Brick types")]
+    [SerializeField] private List<BrickSO> brickSOs = new();
+
+    [Header("Level parent")]
+    [SerializeField] private Transform brickParent;
+
+    private IBrickLayoutProvider layoutProvider;
+    private IBrickFactory brickFactory;
 
     private void Awake()
     {
@@ -16,5 +34,60 @@ public class BrickManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        layoutProvider = new GridLayoutProvider(rows, columns, spacingX, spacingY);
+        brickFactory = new BrickFactory(brickParent);
+    }
+
+    private void Start()
+    {
+        GenerateLevel();
+    }
+
+    private void GenerateLevel()
+    {
+        CenterParentToCamera();
+        
+        if (brickSOs == null || brickSOs.Count == 0)
+        {
+            Debug.LogWarning("No bricks assigned!");
+            return;
+        }
+
+        // use brick to calculate size (assuming all bricks have the same size
+        float brickW = GetBrickWidth(brickSOs[0]);
+        float brickH = GetBrickHeight(brickSOs[0]);
+
+        float levelWidth = (columns * brickW) + ((columns - 1) * spacingX);
+        float levelHeight = (rows * brickH) + ((rows - 1) * spacingY);
+
+        Vector2 topLeft = new Vector2(-levelWidth / 2f + brickW / 2f, levelHeight / 2f - brickH / 2f);
+
+        if (layoutProvider is GridLayoutProvider grid)
+            grid.SetTopLeft(topLeft, brickW, brickH);
+
+
+        List<BrickSpawnData> bricksToSpawn = layoutProvider.GenerateLayout(brickSOs);
+        foreach (var brick in bricksToSpawn)
+        {
+            brickFactory.SpawnBrick(brick.brickSO, brick.position);
+        }
+    }
+
+    private void CenterParentToCamera()
+    {
+        Vector3 camPos = Camera.main.transform.position;
+        brickParent.position = new Vector3(camPos.x, camPos.y, brickParent.position.z);
+    }
+
+    private float GetBrickWidth(BrickSO brick)
+    {
+        var sr = brick.brickPrefab.GetComponentInChildren<SpriteRenderer>();
+        return sr.bounds.size.x;
+    }
+    private float GetBrickHeight(BrickSO brick) 
+    {
+        var sr = brick.brickPrefab.GetComponentInChildren<SpriteRenderer>();
+        return sr.bounds.size.y;
     }
 }

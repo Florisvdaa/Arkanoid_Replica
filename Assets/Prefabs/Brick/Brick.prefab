@@ -109,7 +109,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 0.25}
+  m_Size: {x: 1.2, y: 0.33}
   m_EdgeRadius: 0
 --- !u!114 &5461825607768703818
 MonoBehaviour:
@@ -123,7 +123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f58f32d9a858b341b10cb231f61af77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brickSO: {fileID: 11400000, guid: 257a73e27613a2444b1214f07c20c6c8, type: 2}
   brickSpriteRenderer: {fileID: 6964112532027562333}
 --- !u!1 &7610335619685671363
 GameObject:
@@ -152,7 +151,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.25, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 852923980812461050}
@@ -198,7 +197,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fbd0b189e94eb8449b8c98c6416e5568, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
