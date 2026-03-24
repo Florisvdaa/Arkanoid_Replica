@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private Transform ballStartPos;
     [SerializeField] private Vector2 launchDirection = new Vector2(1, 4);
 
     private bool launch = false;
@@ -13,8 +14,15 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         inputActions = new PlayerInputActions(); // create instance
-
         inputActions.Player.Lauch.performed += ctx => Launch();
+    }
+
+    private void Start()
+    {
+        // Setup ball on start position
+        Ball ball = GetComponentInChildren<Ball>();
+        ball.transform.position = ballStartPos.position;
+        
     }
 
     private void Update()
