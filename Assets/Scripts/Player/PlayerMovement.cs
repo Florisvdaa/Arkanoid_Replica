@@ -19,10 +19,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        // Setup ball on start position
-        Ball ball = GetComponentInChildren<Ball>();
-        ball.transform.position = ballStartPos.position;
+        //// Setup ball on start position
+        //Ball ball = GetComponentInChildren<Ball>();
+        //ball.transform.position = ballStartPos.position;
         
+    }
+
+    public void SetupBall(GameObject ball)
+    {
+        Instantiate(ball, ballStartPos.position, Quaternion.identity, transform);
+        //ball.transform.position = ballStartPos.position;
     }
 
     private void Update()
