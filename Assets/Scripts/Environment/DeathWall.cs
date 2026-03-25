@@ -9,6 +9,7 @@ public class DeathWall : MonoBehaviour
         if(collision.gameObject.tag == "Ball")
         {
             // Event in game manager to set the death state.
+            GameManager.Instance.LoseLife(collision.transform);
 
             Destroy(collision.gameObject);  
         }

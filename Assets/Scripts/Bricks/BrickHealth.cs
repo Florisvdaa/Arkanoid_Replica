@@ -35,9 +35,15 @@ public class BrickHealth : MonoBehaviour
     {
         if(collision.gameObject.tag == "Ball")
         {
+            SoundManager.Instance.PlaySFX("Hit");
+
             health--;
             if (health <= 0)
+            {
+                GameManager.Instance.AddScore(hitPoints);
+                
                 Destroy(gameObject);
+            }
             else
                 ChangeBrickSprite();
         }

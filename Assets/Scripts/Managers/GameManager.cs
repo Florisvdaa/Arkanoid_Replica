@@ -1,9 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    // Events
+    public event Action<int> OnLivesChanged;
+    public event Action<int> OnScoreChanged;
+
     public static GameManager Instance { get; private set; }
 
     [Header("Player position & movemnet settings")]
@@ -15,7 +20,8 @@ public class GameManager : MonoBehaviour
     private PlayerMovement playerPaddle;
 
     // amount of lives until game over
-    [SerializeField] private int lives = 3;
+    [SerializeField] private int currentLives = 3;
+    private int currentScore;
 
     private void Awake()
     {
@@ -31,6 +37,26 @@ public class GameManager : MonoBehaviour
         ResetGame();
     }
 
+    public void AddScore(int amount)
+    {
+        currentScore += amount;
+        OnScoreChanged?.Invoke(currentScore);
+    }
+
+    public void LoseLife(Transform pos)
+    {
+        SoundManager.Instance.PlaySFX("Boom");
+        ParticleManager.Instance.PlayEffect("DeathVFX", pos.position);
+
+        currentLives--;
+        OnLivesChanged?.Invoke(currentLives);
+
+        if(currentLives > 0)
+        {
+            ResetGame();
+        }
+    }
+
     private void ResetGame()
     {
         if (playerPaddle == null)
@@ -43,8 +69,15 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            playerPaddle.transform.position = playerStartPos.position;
+
+            playerPaddle.SetupBall(ballPrefab);
+
             // lerp back to start position
         }
 
     }
+
+    public int GetCurrentLives() => currentLives;
+    public int GetCurrentScore() => currentScore;
 }
