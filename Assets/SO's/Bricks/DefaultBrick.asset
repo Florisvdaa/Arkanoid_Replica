@@ -14,11 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brickPrefab: {fileID: 5767268430874859777, guid: 17fefa900ec8f7941837ddb7257adab1, type: 3}
   hitPoints: 10
-  health: 2
+  health: 1
   brickSprite:
-  - {fileID: 21300000, guid: fbd0b189e94eb8449b8c98c6416e5568, type: 3}
-  - {fileID: 21300000, guid: fedf523221e93d446a9a8e35458b81a4, type: 3}
-  - {fileID: 21300000, guid: f107e4ec72451e94a8b30b854cc02c0c, type: 3}
-  - {fileID: 21300000, guid: 3420ad58db15bd14ab0a3698d124b0e3, type: 3}
-  - {fileID: 21300000, guid: b4bc5b96f8b01c04fbfa91bb304ecdd1, type: 3}
-  - {fileID: 21300000, guid: d5b886eaf2599d44a84d38af4667d4e4, type: 3}
+  - {fileID: 1289574368, guid: 00eada783c0691143a0e657f179ac82f, type: 3}

@@ -404,8 +404,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rows: 5
   columns: 10
-  spacingX: 0.3
-  spacingY: 0.5
+  spacingX: 0.05
+  spacingY: 0.05
   brickSOs:
   - {fileID: 11400000, guid: 257a73e27613a2444b1214f07c20c6c8, type: 2}
   brickParent: {fileID: 1259599743}
@@ -614,6 +614,30 @@ PrefabInstance:
     - target: {fileID: 2054091764038187667, guid: 5ccfc81377a716942b6359e3e9670878, type: 3}
       propertyPath: m_Name
       value: Boundaries
+      objectReference: {fileID: 0}
+    - target: {fileID: 3963931261355076043, guid: 5ccfc81377a716942b6359e3e9670878, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807719167311197682, guid: 5ccfc81377a716942b6359e3e9670878, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330183153031338898, guid: 5ccfc81377a716942b6359e3e9670878, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 16.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330183153031338898, guid: 5ccfc81377a716942b6359e3e9670878, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789289807175057454, guid: 5ccfc81377a716942b6359e3e9670878, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 16.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789289807175057454, guid: 5ccfc81377a716942b6359e3e9670878, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
