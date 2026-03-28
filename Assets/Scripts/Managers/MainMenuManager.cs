@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -22,6 +24,9 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject settingScreen;
     [SerializeField] private GameObject creditsScreen;
     [SerializeField] private GameObject quitScreen;
+
+    [SerializeField] private Animator mainMenuAnimator;
+    [SerializeField] private VideoPlayer mainVideoPlayer;
 
     private void Awake()
     {
@@ -58,6 +63,15 @@ public class MainMenuManager : MonoBehaviour
         creditsScreen.SetActive(false);
         quitScreen.SetActive(false);
         mainMenuScreen.SetActive(true);
+
+        mainVideoPlayer.Play();
+
+        mainVideoPlayer.loopPointReached += OnMainMenuVideoFinished;
+    }
+
+    private void OnMainMenuVideoFinished(VideoPlayer vp)
+    {
+        mainMenuAnimator.SetTrigger("ShowMenu");
     }
 
     private void StartGame()
@@ -69,7 +83,10 @@ public class MainMenuManager : MonoBehaviour
     private void OpenSettings()
     {
         settingScreen.SetActive(true);
-        mainMenuScreen.SetActive(false);
+
+        //mainMenuAnimator.SetTrigger("ShowMenu");
+        mainMenuAnimator.ResetTrigger("ShowMenu");
+        //mainMenuScreen.SetActive(false);
     }
 
     private void CloseSettings()
@@ -106,5 +123,6 @@ public class MainMenuManager : MonoBehaviour
     {
         Debug.Log("Quit Game");
         Application.Quit();
+        EditorApplication.ExitPlaymode();
     }
 }
