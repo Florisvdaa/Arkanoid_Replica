@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -25,8 +26,18 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject creditsScreen;
     [SerializeField] private GameObject quitScreen;
 
-    [SerializeField] private Animator mainMenuAnimator;
     [SerializeField] private VideoPlayer mainVideoPlayer;
+
+    [Header("Feedbacks")]
+    [SerializeField] private MMF_Player mainMenuOpenFeedback;
+    [SerializeField] private MMF_Player mainMenuCloseFeedback;
+    [SerializeField] private MMF_Player mainMenuOpenAgainFeedback; // plays without the button fade in.
+    [SerializeField] private MMF_Player settingsMenuOpenFeedback;
+    [SerializeField] private MMF_Player settingsMenuCloseFeedback;
+    [SerializeField] private MMF_Player creditsMenuOpenFeedback;
+    [SerializeField] private MMF_Player creditsMenuCloseFeedback;
+    [SerializeField] private MMF_Player exitMenuOpenFeedback;
+    [SerializeField] private MMF_Player exitMenuCloseFeedback;
 
     private void Awake()
     {
@@ -59,9 +70,9 @@ public class MainMenuManager : MonoBehaviour
         quitNoButton.onClick.AddListener(CloseExitCheck);
 
         // Ensure all screens start hidden
-        settingScreen.SetActive(false);
-        creditsScreen.SetActive(false);
-        quitScreen.SetActive(false);
+        settingScreen.SetActive(true);
+        creditsScreen.SetActive(true);
+        quitScreen.SetActive(true);
         mainMenuScreen.SetActive(true);
 
         mainVideoPlayer.Play();
@@ -71,7 +82,9 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnMainMenuVideoFinished(VideoPlayer vp)
     {
-        mainMenuAnimator.SetTrigger("ShowMenu");
+        //mainMenuAnimator.SetTrigger("ShowMenu");
+        Debug.Log("Starting video done");
+        mainMenuOpenFeedback.PlayFeedbacks();
     }
 
     private void StartGame()
@@ -82,41 +95,40 @@ public class MainMenuManager : MonoBehaviour
 
     private void OpenSettings()
     {
-        settingScreen.SetActive(true);
+        //settingScreen.SetActive(true);
+        mainMenuCloseFeedback.PlayFeedbacks();
 
-        //mainMenuAnimator.SetTrigger("ShowMenu");
-        mainMenuAnimator.ResetTrigger("ShowMenu");
-        //mainMenuScreen.SetActive(false);
+        settingsMenuOpenFeedback.PlayFeedbacks();
     }
 
     private void CloseSettings()
     {
-        settingScreen.SetActive(false);
-        mainMenuScreen.SetActive(true);
+        settingsMenuCloseFeedback.PlayFeedbacks();
+        mainMenuOpenAgainFeedback.PlayFeedbacks();
     }
 
     private void OpenCredits()
     {
-        creditsScreen.SetActive(true);
-        mainMenuScreen.SetActive(false);
+        mainMenuCloseFeedback.PlayFeedbacks();
+        creditsMenuOpenFeedback.PlayFeedbacks();
     }
 
     private void CloseCredits()
     {
-        creditsScreen.SetActive(false);
-        mainMenuScreen.SetActive(true);
+        creditsMenuCloseFeedback.PlayFeedbacks();
+        mainMenuOpenAgainFeedback.PlayFeedbacks();
     }
 
     private void OpenExitCheck()
     {
-        quitScreen.SetActive(true);
-        mainMenuScreen.SetActive(false);
+        mainMenuCloseFeedback.PlayFeedbacks();
+        exitMenuOpenFeedback.PlayFeedbacks();
     }
 
     private void CloseExitCheck()
     {
-        quitScreen.SetActive(false);
-        mainMenuScreen.SetActive(true);
+        exitMenuCloseFeedback.PlayFeedbacks();
+        mainMenuOpenAgainFeedback.PlayFeedbacks();
     }
 
     private void ExitGame()
