@@ -66,6 +66,8 @@ public class GameManager : MonoBehaviour
             playerPaddle = playerPaddleGO.GetComponent<PlayerMovement>();
 
             playerPaddle.SetupBall(ballPrefab);
+
+            PowerUpManager.Instance.SetPlayerPaddle(playerPaddle);
         }
         else
         {
@@ -75,6 +77,8 @@ public class GameManager : MonoBehaviour
 
             // lerp back to start position
         }
+
+
 
     }
 

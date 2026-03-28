@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty;
 
 /// <summary>
 /// Stratagy pattern
@@ -20,6 +21,8 @@ public class GridLayoutProvider : IBrickLayoutProvider
     private Vector2 topLeft;
     private float brickW;
     private float brickH;
+
+    public System.Func<int, int, BrickSO, BrickSO> patternFunc; // Returns the brick type to use (or null to skip)
 
     public GridLayoutProvider(int rows, int columns, float spacingX, float spacingY)
     {
@@ -42,13 +45,27 @@ public class GridLayoutProvider : IBrickLayoutProvider
 
         for (int row = 0; row < rows; row++)
         {
-            BrickSO brickType = brickTypes[row % brickTypes.Count];
+            BrickSO defaultType = brickTypes[row % brickTypes.Count];
 
             for (int col = 0; col < columns; col++)
             {
-                Vector2 pos = new Vector2(topLeft.x + col * (brickW + spacingX), topLeft.y - row * (brickH + spacingY));
+                BrickSO finalType = patternFunc != null
+                ? patternFunc(row, col, defaultType)
+                : defaultType;
 
-                result.Add(new BrickSpawnData(brickType, pos));
+                if (finalType == null)
+                    continue; // skip brick
+
+                Vector2 pos = new Vector2(
+                    topLeft.x + col * (brickW + spacingX),
+                    topLeft.y - row * (brickH + spacingY)
+                );
+
+                result.Add(new BrickSpawnData(finalType, pos));
+
+                //Vector2 pos = new Vector2(topLeft.x + col * (brickW + spacingX), topLeft.y - row * (brickH + spacingY));
+
+                //result.Add(new BrickSpawnData(brickType, pos));
             }
         }
 

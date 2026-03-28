@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3709fb2b01b34534689757fb52152be1, type: 3}
-  m_Name: DefaultBrick
+  m_Name: Blue Brick
   m_EditorClassIdentifier: 
   brickPrefab: {fileID: 5767268430874859777, guid: 17fefa900ec8f7941837ddb7257adab1, type: 3}
   hitPoints: 10
   health: 1
   brickSprite:
-  - {fileID: 1289574368, guid: 00eada783c0691143a0e657f179ac82f, type: 3}
+  - {fileID: -1601322127, guid: dad5c7819cc5c5040ac9fe2c03d929ab, type: 3}

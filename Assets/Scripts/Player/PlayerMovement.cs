@@ -25,7 +25,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetupBall(GameObject ball)
     {
-        Instantiate(ball, ballStartPos.position, Quaternion.identity, transform);
+        GameObject currentBall = Instantiate(ball, ballStartPos.position, Quaternion.identity, transform);
+        PowerUpManager.Instance.SetCurrentBall(currentBall.GetComponent<Ball>());
+
         //ball.transform.position = ballStartPos.position;
     }
 
@@ -82,5 +84,16 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
         inputActions.Disable();
+    }
+
+    // Upgrades
+    public void Extend()
+    {
+        Debug.Log("Paddle extend");
+    }
+
+    public void EnableMagnet()
+    {
+        Debug.Log("Paddle Magnet");
     }
 }

@@ -26,4 +26,9 @@ public class Ball : MonoBehaviour
         rb2d.simulated = false;
         rb2d.velocity = Vector2.zero;
     }
+
+    public void SplitBall()
+    {
+        Debug.Log("Split this ball");
+    }
 }

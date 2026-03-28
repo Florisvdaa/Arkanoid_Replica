@@ -8,6 +8,8 @@ public class BrickHealth : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer brickSpriteRenderer;
 
+    [SerializeField] private List<PowerUpSO> possibleDrops;
+
     private int health;
     private int hitPoints;
 
@@ -31,6 +33,19 @@ public class BrickHealth : MonoBehaviour
         brickSpriteRenderer.sprite = brick_SO.brickSprite[health - 1];
     }
 
+    private void TryDropPowerUp()
+    {
+        foreach (var drop in possibleDrops)
+        {
+            if (Random.value <= drop.dropChance)
+            {
+                GameObject obj = Instantiate(drop.prefab, transform.position, Quaternion.identity);
+                obj.GetComponent<PowerUpItem>().Initialize(drop);
+                return; // Only drop 1 item.
+            }
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Ball")
@@ -42,6 +57,9 @@ public class BrickHealth : MonoBehaviour
             {
                 GameManager.Instance.AddScore(hitPoints);
                 
+                // Chance to drop item
+                TryDropPowerUp();
+
                 Destroy(gameObject);
             }
             else

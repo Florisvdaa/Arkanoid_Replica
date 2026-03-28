@@ -64,10 +64,13 @@ public class BrickManager : MonoBehaviour
         Vector2 topLeft = new Vector2(-levelWidth / 2f + brickW / 2f, levelHeight / 2f - brickH / 2f);
 
         if (layoutProvider is GridLayoutProvider grid)
+        {
             grid.SetTopLeft(topLeft, brickW, brickH);
+            grid.patternFunc = PyramidPattern;
+        }
 
 
-        List<BrickSpawnData> bricksToSpawn = layoutProvider.GenerateLayout(brickSOs);
+            List<BrickSpawnData> bricksToSpawn = layoutProvider.GenerateLayout(brickSOs);
         foreach (var brick in bricksToSpawn)
         {
             brickFactory.SpawnBrick(brick.brickSO, brick.position);
@@ -90,4 +93,29 @@ public class BrickManager : MonoBehaviour
         var sr = brick.brickPrefab.GetComponentInChildren<SpriteRenderer>();
         return sr.bounds.size.y;
     }
+
+    // Patterns
+    private BrickSO CheckerboardPattern(int row, int col, BrickSO defaultType)
+    {
+        return (row + col) % 2 == 0 ? defaultType : brickSOs[1];
+    }
+    private BrickSO SkipPattern(int row, int col, BrickSO defaultType)
+    {
+        return col % 2 == 0 ? defaultType : null;
+    }
+    private BrickSO PyramidPattern(int row, int col, BrickSO defaultType)
+    {
+        int start = row;
+        int end = columns - row - 1;
+
+        if (col < start || col > end)
+            return null;
+
+        return defaultType;
+    }
+    private BrickSO RandomPattern(int row, int col, BrickSO defaultType)
+    {
+        return brickSOs[Random.Range(0, brickSOs.Count)];
+    }
+
 }
