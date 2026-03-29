@@ -91,6 +91,7 @@ public class MainMenuManager : MonoBehaviour
     {
         Debug.Log("Start Game!");
         // SceneManager.LoadScene("GameScene");
+        Loader.Load(Loader.Scene.GameScene);
     }
 
     private void OpenSettings()

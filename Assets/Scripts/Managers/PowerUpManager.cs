@@ -53,4 +53,13 @@ public class PowerUpManager : MonoBehaviour
                 break;
         }
     }
+
+    private void Update()
+    {
+        // Debug
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            currentBall.SplitBall();
+        }
+    }
 }

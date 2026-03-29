@@ -29,6 +29,14 @@ public class Ball : MonoBehaviour
 
     public void SplitBall()
     {
-        Debug.Log("Split this ball");
+        Vector2 lastDir = rb2d.velocity.normalized;
+
+        Vector2 baseDir = lastDir;
+
+        Vector2 dir1 = Quaternion.Euler(0, 0, 20f) * baseDir;
+        Vector2 dir2 = Quaternion.Euler(0, 0, -20f) * baseDir;
+
+        GameManager.Instance.SpawnSplitBall(transform.position, dir1);
+        GameManager.Instance.SpawnSplitBall(transform.position, dir2);
     }
 }

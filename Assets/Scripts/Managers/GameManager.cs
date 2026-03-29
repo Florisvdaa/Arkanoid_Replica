@@ -77,9 +77,15 @@ public class GameManager : MonoBehaviour
 
             // lerp back to start position
         }
+    }
 
+    public void SpawnSplitBall(Vector3 position, Vector2 direction)
+    {
+        GameObject newBallObj = Instantiate(ballPrefab, position, Quaternion.identity);
+        newBallObj.transform.SetParent(null);
 
-
+        Ball newBall = newBallObj.GetComponent<Ball>();
+        newBall.Launch(direction.normalized);
     }
 
     public int GetCurrentLives() => currentLives;
