@@ -25,6 +25,8 @@ public class BrickHealth : MonoBehaviour
 
             // Because arrays start on "0" health -1 gives us the first sprite in the array.
             brickSpriteRenderer.sprite = brick_SO.brickSprite[health - 1];
+
+            BrickManager.Instance.RegisterBrick();
         }
     }
 
@@ -59,6 +61,8 @@ public class BrickHealth : MonoBehaviour
                 
                 // Chance to drop item
                 TryDropPowerUp();
+
+                BrickManager.Instance.UnregisterBrick();
 
                 Destroy(gameObject);
             }

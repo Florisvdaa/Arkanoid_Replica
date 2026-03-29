@@ -8,7 +8,6 @@ public class PowerUpManager : MonoBehaviour
     public static PowerUpManager Instance { get; private set; }
 
     private PlayerMovement playerPaddle;
-    private Ball currentBall;
 
     private void Awake()
     {
@@ -27,11 +26,6 @@ public class PowerUpManager : MonoBehaviour
         playerPaddle = paddle;
     }
 
-    public void SetCurrentBall(Ball ball)
-    {
-        currentBall = ball;
-    }
-
     public void ActivatePowerUp(PowerUpSO powerUp)
     {
         switch (powerUp.powerUpName)
@@ -45,7 +39,7 @@ public class PowerUpManager : MonoBehaviour
                 break;
 
             case "SplitBall":
-                currentBall.SplitBall();
+                BallManager.Instance.SplitAllBalls();
                 break;
 
             default:
@@ -59,7 +53,7 @@ public class PowerUpManager : MonoBehaviour
         // Debug
         if (Input.GetKeyDown(KeyCode.U))
         {
-            currentBall.SplitBall();
+            BallManager.Instance.SplitAllBalls();
         }
     }
 }

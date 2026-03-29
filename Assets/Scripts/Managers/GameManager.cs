@@ -20,8 +20,9 @@ public class GameManager : MonoBehaviour
     private PlayerMovement playerPaddle;
 
     // amount of lives until game over
-    [SerializeField] private int currentLives = 3;
-    private int currentScore;
+    private int currentLives = 3;
+    private int currentScore = 0;
+    private int currentLevel = 0;
 
     private void Awake()
     {
@@ -51,10 +52,13 @@ public class GameManager : MonoBehaviour
         currentLives--;
         OnLivesChanged?.Invoke(currentLives);
 
-        if(currentLives > 0)
+        if (currentLives <= 0)
         {
-            ResetGame();
+            GameOver();
+            return;
         }
+
+        ResetGame();
     }
 
     private void ResetGame()
@@ -82,10 +86,37 @@ public class GameManager : MonoBehaviour
     public void SpawnSplitBall(Vector3 position, Vector2 direction)
     {
         GameObject newBallObj = Instantiate(ballPrefab, position, Quaternion.identity);
-        newBallObj.transform.SetParent(null);
 
         Ball newBall = newBallObj.GetComponent<Ball>();
         newBall.Launch(direction.normalized);
+    }
+
+    public void LevelComplete()
+    {
+        currentLevel++;
+        Debug.Log("Level complets");
+
+        // Load next level (or loop, or end game)
+        //if (currentLevel >= levelDefinitions.Count)
+        //{
+        //    GameWon();
+        //}
+        //else
+        //{
+        //    LoadLevel(currentLevel);
+        //}
+    }
+    //public void LoadLevel(int index)
+    //{
+    //    BrickManager.Instance.ClearLevel();
+    //    //BrickManager.Instance.LoadLevel(levelDefinitions[index]);
+
+    //    playerPaddle.SetupBall(ballPrefab);
+    //}
+
+    public void GameOver()
+    {
+        Debug.Log("Game Over");
     }
 
     public int GetCurrentLives() => currentLives;

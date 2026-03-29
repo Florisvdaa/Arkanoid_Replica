@@ -13,6 +13,11 @@ public class Ball : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
     }
 
+    private void Start()
+    {
+        BallManager.Instance.RegisterBall(this);
+    }
+
     public void Launch(Vector2 direciton)
     {
         transform.parent = null;
@@ -29,14 +34,20 @@ public class Ball : MonoBehaviour
 
     public void SplitBall()
     {
-        Vector2 lastDir = rb2d.velocity.normalized;
-
-        Vector2 baseDir = lastDir;
+        Vector2 baseDir = rb2d.velocity.normalized;
+        if (baseDir == Vector2.zero)
+            baseDir = Vector2.up;
 
         Vector2 dir1 = Quaternion.Euler(0, 0, 20f) * baseDir;
         Vector2 dir2 = Quaternion.Euler(0, 0, -20f) * baseDir;
 
         GameManager.Instance.SpawnSplitBall(transform.position, dir1);
         GameManager.Instance.SpawnSplitBall(transform.position, dir2);
+    }
+
+    public void DestroyBall()
+    {
+        BallManager.Instance.UnregisterBall(this);
+        Destroy(gameObject);
     }
 }

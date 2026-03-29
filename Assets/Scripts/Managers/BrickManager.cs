@@ -21,6 +21,8 @@ public class BrickManager : MonoBehaviour
     [Header("Level parent")]
     [SerializeField] private Transform brickParent;
 
+    [SerializeField] private int activeBricks = 0;
+
     private IBrickLayoutProvider layoutProvider;
     private IBrickFactory brickFactory;
 
@@ -77,6 +79,25 @@ public class BrickManager : MonoBehaviour
         }
     }
 
+    public void RegisterBrick()
+    {
+        activeBricks++;
+    }
+
+    public void UnregisterBrick()
+    {
+        activeBricks--;
+
+        if (activeBricks <= 0)
+            GameManager.Instance.LevelComplete();
+    }
+    public void ClearLevel()
+    {
+        foreach (Transform child in brickParent)
+            Destroy(child.gameObject);
+
+        activeBricks = 0;
+    }
     private void CenterParentToCamera()
     {
         Vector3 camPos = Camera.main.transform.position;
