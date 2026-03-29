@@ -17,7 +17,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject ballPrefab;
 
+    [SerializeField] private List<LevelSO> levelDefinitions = new List<LevelSO>();
+
     private PlayerMovement playerPaddle;
+
+    public bool IsTransitioning { get; private set; }
 
     // amount of lives until game over
     private int currentLives = 3;
@@ -35,7 +39,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        ResetGame();
+        SetupGame();
     }
 
     public void AddScore(int amount)
@@ -58,10 +62,10 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        ResetGame();
+        SetupGame();
     }
 
-    private void ResetGame()
+    private void SetupGame()
     {
         if (playerPaddle == null)
         {
@@ -96,23 +100,79 @@ public class GameManager : MonoBehaviour
         currentLevel++;
         Debug.Log("Level complets");
 
-        // Load next level (or loop, or end game)
-        //if (currentLevel >= levelDefinitions.Count)
-        //{
-        //    GameWon();
-        //}
-        //else
-        //{
-        //    LoadLevel(currentLevel);
-        //}
+        //Load next level(or loop, or end game)
+        if (currentLevel >= levelDefinitions.Count)
+        {
+            GameWon();
+        }
+        else
+        {
+            //LoadLevel(currentLevel);
+            StartCoroutine(LevelTransitionCO(currentLevel));
+        }
     }
-    //public void LoadLevel(int index)
-    //{
-    //    BrickManager.Instance.ClearLevel();
-    //    //BrickManager.Instance.LoadLevel(levelDefinitions[index]);
 
-    //    playerPaddle.SetupBall(ballPrefab);
-    //}
+    private IEnumerator LevelTransitionCO(int nextLevelIndex)
+    {
+        IsTransitioning = true;
+
+        // Disable Paddle movement
+        playerPaddle.enabled = false;
+
+        // Destroy falling powerups
+        foreach (var pu in GameObject.FindGameObjectsWithTag("PowerUp"))
+        {
+            Destroy(pu);
+        }
+
+        // Destroy all balls
+        foreach (var ball in FindObjectsOfType<Ball>())
+        {
+            BallManager.Instance.UnregisterBall(ball);
+            Destroy(ball.gameObject);
+        }
+
+        playerPaddle.ResetPowreUps();
+
+        // Lerp paddle to center
+        Vector3 startPos = playerPaddle.transform.position;
+        Vector3 targetPos = playerStartPos.position;
+
+        float t = 0f;
+        float speed = 2f;
+
+        while(t < 1f)
+        {
+            t += Time.deltaTime * speed;
+            playerPaddle.transform.position = Vector3.Lerp(startPos, targetPos, t);
+            yield return null;
+        }
+
+        // Load next level
+        BrickManager.Instance.ClearLevel();
+        BrickManager.Instance.LoadLevel(levelDefinitions[nextLevelIndex]);
+
+        // Spawn new ball
+        playerPaddle.SetupBall(ballPrefab);
+
+        // Re-enable paddle
+        playerPaddle.enabled = true;
+        
+        IsTransitioning = false;
+    }
+
+    public void LoadLevel(int index)
+    {
+        BrickManager.Instance.ClearLevel();
+        BrickManager.Instance.LoadLevel(levelDefinitions[index]);
+
+        playerPaddle.SetupBall(ballPrefab);
+    }
+
+    public void GameWon()
+    {
+        Debug.Log("Game Won");
+    }
 
     public void GameOver()
     {

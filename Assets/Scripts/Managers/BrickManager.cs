@@ -26,6 +26,8 @@ public class BrickManager : MonoBehaviour
     private IBrickLayoutProvider layoutProvider;
     private IBrickFactory brickFactory;
 
+    private LevelPattern currentLevelPattern;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -68,11 +70,30 @@ public class BrickManager : MonoBehaviour
         if (layoutProvider is GridLayoutProvider grid)
         {
             grid.SetTopLeft(topLeft, brickW, brickH);
-            grid.patternFunc = PyramidPattern;
+
+            switch(currentLevelPattern)
+            {
+                case LevelPattern.Default:
+                    grid.patternFunc = DefaultPattern;
+                    break;
+                case LevelPattern.CheckerboardPattern:
+                    grid.patternFunc = CheckerboardPattern;
+                    break;
+                case LevelPattern.SkipPattern:
+                    grid.patternFunc = SkipPattern;
+                    break;
+                case LevelPattern.PyramidPattern:
+                    grid.patternFunc = PyramidPattern;
+                    break;
+                case LevelPattern.RandomPattern:
+                    grid.patternFunc = RandomPattern;
+                    break;
+            }
         }
 
 
-            List<BrickSpawnData> bricksToSpawn = layoutProvider.GenerateLayout(brickSOs);
+        List<BrickSpawnData> bricksToSpawn = layoutProvider.GenerateLayout(brickSOs);
+        
         foreach (var brick in bricksToSpawn)
         {
             brickFactory.SpawnBrick(brick.brickSO, brick.position);
@@ -98,6 +119,13 @@ public class BrickManager : MonoBehaviour
 
         activeBricks = 0;
     }
+
+    public void LoadLevel(LevelSO definition)
+    {
+        currentLevelPattern = definition.levelPattern;
+        GenerateLevel();
+    }
+
     private void CenterParentToCamera()
     {
         Vector3 camPos = Camera.main.transform.position;
@@ -138,5 +166,10 @@ public class BrickManager : MonoBehaviour
     {
         return brickSOs[Random.Range(0, brickSOs.Count)];
     }
+    private BrickSO DefaultPattern(int row, int col, BrickSO defaultType)
+    {
+        return brickSOs[row % brickSOs.Count];
+    }
+
 
 }

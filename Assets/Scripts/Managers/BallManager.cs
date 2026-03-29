@@ -31,7 +31,7 @@ public class BallManager : MonoBehaviour
             activeBalls.Remove(ball);
 
         // if no ball left => lose life
-        if (activeBalls.Count == 0)
+        if (activeBalls.Count == 0 && !GameManager.Instance.IsTransitioning)
             GameManager.Instance.LoseLife(ball.transform);
     }
 

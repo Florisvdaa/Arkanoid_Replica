@@ -1808,6 +1808,14 @@ PrefabInstance:
       value: BrickManager
       objectReference: {fileID: 0}
     - target: {fileID: 2218307262419556803, guid: 5107597ac05606240a1cecaec8a577b5, type: 3}
+      propertyPath: rows
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2218307262419556803, guid: 5107597ac05606240a1cecaec8a577b5, type: 3}
+      propertyPath: columns
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2218307262419556803, guid: 5107597ac05606240a1cecaec8a577b5, type: 3}
       propertyPath: brickParent
       value: 
       objectReference: {fileID: 1259599743}
@@ -1912,6 +1920,30 @@ PrefabInstance:
       propertyPath: playerStartPos
       value: 
       objectReference: {fileID: 1380915148}
+    - target: {fileID: 6538651776254175343, guid: 5fa3161ddb570aa45b6a221a331767c3, type: 3}
+      propertyPath: levelDefinitions.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538651776254175343, guid: 5fa3161ddb570aa45b6a221a331767c3, type: 3}
+      propertyPath: levelDefinitions.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 40a0accbacf5618479c5bb68884c7752, type: 2}
+    - target: {fileID: 6538651776254175343, guid: 5fa3161ddb570aa45b6a221a331767c3, type: 3}
+      propertyPath: levelDefinitions.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: e432dfcf093aa9044a532311a1bf0c9e, type: 2}
+    - target: {fileID: 6538651776254175343, guid: 5fa3161ddb570aa45b6a221a331767c3, type: 3}
+      propertyPath: levelDefinitions.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: df43798205d7de94bacd14df5e63a594, type: 2}
+    - target: {fileID: 6538651776254175343, guid: 5fa3161ddb570aa45b6a221a331767c3, type: 3}
+      propertyPath: levelDefinitions.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3685cb83ae426d540b1075cf3bdcbf86, type: 2}
+    - target: {fileID: 6538651776254175343, guid: 5fa3161ddb570aa45b6a221a331767c3, type: 3}
+      propertyPath: levelDefinitions.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2569bbf0594c70d41851cbc556b5a9b4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

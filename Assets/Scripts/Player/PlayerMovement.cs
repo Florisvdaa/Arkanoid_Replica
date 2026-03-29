@@ -52,9 +52,6 @@ public class PlayerMovement : MonoBehaviour
     public void SetupBall(GameObject ball)
     {
         GameObject currentBall = Instantiate(ball, ballStartPos.position, Quaternion.identity, transform);
-        //PowerUpManager.Instance.SetCurrentBall(currentBall.GetComponent<Ball>());
-
-        //ball.transform.position = ballStartPos.position;
     }
 
     private void Update()
@@ -238,6 +235,23 @@ public class PlayerMovement : MonoBehaviour
 
         Launch();
     }
+    
+    public void ResetPowreUps()
+    {
+        // Reset extend
+        isExtended = false;
+        extendTimer = 0f;
+        endingFeedbackPlayed = false;
+
+        // Reset collider size
+        boxCol2D.size = new Vector2(2f, boxCol2D.size.y); // Default size
+        backToNormalFeedback.PlayFeedbacks();
+
+        // Reset magnet
+        magnetEnabled = false;
+        disableMagnetFeedback.PlayFeedbacks();
+    }
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(magnetEnabled && collision.gameObject.CompareTag("Ball"))

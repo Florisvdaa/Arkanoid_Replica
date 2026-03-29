@@ -8,6 +8,8 @@ public class PowerUpItem : MonoBehaviour
     private float fallSpeed = 2f;
     [SerializeField] private SpriteRenderer icon;
 
+    private float killTimer = 5f;
+
     public void Initialize(PowerUpSO powerUpData)
     {
         data = powerUpData;
@@ -18,6 +20,11 @@ public class PowerUpItem : MonoBehaviour
     private void Update()
     {
         transform.Translate(Vector2.down * fallSpeed * Time.deltaTime);
+    
+        float timer = Time.deltaTime;
+        
+        if (timer > killTimer) 
+            Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

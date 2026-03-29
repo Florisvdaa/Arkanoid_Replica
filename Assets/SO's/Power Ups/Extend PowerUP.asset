@@ -15,4 +15,4 @@ MonoBehaviour:
   powerUpName: ExtendPaddle
   icon: {fileID: 21300014, guid: 358b5d9f23bc9413e87c9948acc67ee1, type: 3}
   prefab: {fileID: 7618602622942923988, guid: a16829844af9e0a4b82732bd63ae1c81, type: 3}
-  dropChance: 0.2
+  dropChance: 0.8
