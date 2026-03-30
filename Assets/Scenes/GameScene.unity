@@ -1809,11 +1809,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2218307262419556803, guid: 5107597ac05606240a1cecaec8a577b5, type: 3}
       propertyPath: rows
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2218307262419556803, guid: 5107597ac05606240a1cecaec8a577b5, type: 3}
       propertyPath: columns
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2218307262419556803, guid: 5107597ac05606240a1cecaec8a577b5, type: 3}
       propertyPath: brickParent

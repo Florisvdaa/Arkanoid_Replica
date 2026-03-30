@@ -24,9 +24,13 @@ public class PowerUpItem : MonoBehaviour
         float timer = Time.deltaTime;
         
         if (timer > killTimer) 
-            Destroy(this.gameObject);
+           KillThisPowerUp();
     }
 
+    public void KillThisPowerUp()
+    {
+        Destroy(this.gameObject);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Paddle"))

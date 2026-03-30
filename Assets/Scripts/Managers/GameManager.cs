@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     // amount of lives until game over
     private int currentLives = 3;
+    private int maxLives = 5;
     private int currentScore = 0;
     private int currentLevel = 0;
 
@@ -65,6 +66,16 @@ public class GameManager : MonoBehaviour
         SetupGame();
     }
 
+    public void AddLife()
+    {
+        currentLives++;
+        if (currentLives > maxLives)
+        {
+            currentLives = maxLives;
+        }
+
+        OnLivesChanged?.Invoke(currentLives);
+    }
     private void SetupGame()
     {
         if (playerPaddle == null)
@@ -82,6 +93,13 @@ public class GameManager : MonoBehaviour
             playerPaddle.transform.position = playerStartPos.position;
 
             playerPaddle.SetupBall(ballPrefab);
+
+            // Destroy falling powerups
+            // needs to be cleaner
+            foreach (var pu in GameObject.FindGameObjectsWithTag("PowerUp"))
+            {
+                Destroy(pu);
+            }
 
             // lerp back to start position
         }

@@ -15,4 +15,4 @@ MonoBehaviour:
   powerUpName: Magnet
   icon: {fileID: 21300000, guid: ab226671d205e4546b416ae6b434c69c, type: 3}
   prefab: {fileID: 7618602622942923988, guid: a16829844af9e0a4b82732bd63ae1c81, type: 3}
-  dropChance: 0.8
+  dropChance: 0.2

@@ -42,6 +42,10 @@ public class PowerUpManager : MonoBehaviour
                 BallManager.Instance.SplitAllBalls();
                 break;
 
+            case "Life":
+                GameManager.Instance.AddLife();
+                break;
+
             default:
                 Debug.LogWarning("Unknown power-up: " + powerUp.powerUpName);
                 break;

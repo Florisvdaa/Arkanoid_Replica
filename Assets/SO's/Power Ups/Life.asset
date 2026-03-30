@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 348c628593a340d4eaed8d9733e8a222, type: 3}
-  m_Name: Extend PowerUP
+  m_Name: Life
   m_EditorClassIdentifier: 
-  powerUpName: ExtendPaddle
-  icon: {fileID: 21300014, guid: 358b5d9f23bc9413e87c9948acc67ee1, type: 3}
+  powerUpName: Life
+  icon: {fileID: 8194451072731040638, guid: 356f437643c6c7a48b6088600ecc93ff, type: 3}
   prefab: {fileID: 7618602622942923988, guid: a16829844af9e0a4b82732bd63ae1c81, type: 3}
   dropChance: 0.2

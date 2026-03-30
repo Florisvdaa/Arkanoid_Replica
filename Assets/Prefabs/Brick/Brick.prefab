@@ -126,6 +126,8 @@ MonoBehaviour:
   brickSpriteRenderer: {fileID: 6964112532027562333}
   possibleDrops:
   - {fileID: 11400000, guid: c748b5b9789241643aeea942bb0c6032, type: 2}
+  - {fileID: 11400000, guid: ff294c87607c620429137403f00c0f96, type: 2}
+  - {fileID: 11400000, guid: 77db6925630a6bb458cbb967c045cf4b, type: 2}
 --- !u!1 &7610335619685671363
 GameObject:
   m_ObjectHideFlags: 0
